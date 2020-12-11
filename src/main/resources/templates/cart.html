@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Заготовка магазина</title>
+        <link rel="stylesheet" th:href="@{../static/css/stylesheet.css}">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container">
+
+            <h1>Корзина</h1>
+
+            <div th:if="${cart.cartRecords.size() > 0}">
+                <table class="table table-hover">
+                    <thead class="thead-light">
+                    <tr>
+                        <th>Название товара</th>
+                        <th>Цена 1 шт.</th>
+                        <th>Количество</th>
+                        <th>Цена</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="cartRecord : ${cart.cartRecords}">
+                        <td th:text="${cartRecord.product.title}"/>
+                        <td th:text="${cartRecord.product.price}"/>
+                        <td th:text="${cartRecord.quantity}"/>
+                        <td th:text="${cartRecord.price}"/>
+                        <td>
+                            <a th:href="@{'/cart/remove/' + ${cartRecord.product.id}}" class="btn btn-danger">Удалить</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <span th:text="'Общая стоимость: ' + ${cart.price}" />
+                <form method="post" th:action="@{/checkout}">
+                    <div class="row" th:if="${cart.payments.size() > 0 && cart.cartRecords.size() > 0}">
+                        <div class="col-sm">
+                            Выберите способ оплаты:
+                            <label>
+                                <select id="payment" name="paymentId">
+                                    <option th:each="payment : ${cart.payments}"
+                                            th:value="${payment.id}"
+                                            th:text="${payment.name}">
+                                    </option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="col-sm">
+                            <input type="submit" class="btn btn-primary" value="Перейти к оплате покупок" />
+                        </div>
+                    </div>
+                    <div class="row" th:if="${cart.payments.size() == 0}">
+                        <div>К сожалению сервис оплаты временно недоступен! Попробуйте оплатить позднее! </div>
+                    </div>
+                </form>
+            </div>
+            <div th:if="${cart.cartRecords.size() == 0}">
+                <span text="Ваша корзина пуста" />
+            </div>
+        </div>
+
+    </body>
+</html>

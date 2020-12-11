@@ -1,0 +1,26 @@
+[
+  {
+    "title" : "Ананасы",
+    "price" : 500.00,
+    "available" : true,
+    "category" : 1
+  },
+  {
+    "title" : "Бананы",
+    "price" : 70.00,
+    "available" : true,
+    "category" : 1
+  },
+  {
+    "title" : "Кефир",
+    "price" : 30.00,
+    "available" : true,
+    "category" : 0
+  },
+  {
+    "title" : "Гречка",
+    "price" : 70.00,
+    "available" : true,
+    "category" : 1
+  }
+]
